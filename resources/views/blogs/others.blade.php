@@ -92,7 +92,7 @@
         var token = '{{Session::token()}}';
         var urlEdit = '{{route('edit')}}';
         var urlLike = '{{route('like')}}';
-        var getComments='{{route('get.comments')}}';
+        var getComments = '{{route('navigate.get.comments')}}';
 
     </script>
 @endsection

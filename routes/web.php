@@ -61,7 +61,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/like', 'PostController@postLikePost')->name('like');
 
     Route::post('/getlike/{post_id}', 'postController@getLike')->name('get.like');
-    Route::post('/getComments', 'postController@getComments')->name('get.comments');
+    Route::post('readmore/getComments', 'postController@getComments')->name('readmore.get.comments');
+
+    Route::post('navigate/getComments', 'postController@getComments')->name('navigate.get.comments');
+
+
+    Route::post('getComments', 'postController@getComments')->name('get.comments');
 
     //comment
     Route::post('/comment', 'PostController@postComment')->name('comment');

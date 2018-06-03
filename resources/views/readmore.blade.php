@@ -69,40 +69,21 @@
                                 <h3>{{$comment->user->first_name}}</h3>
                                 <h4>{{$comment->created_at}}</h4>
                                 <p>{{$comment->comment}}</p>
-                                @foreach($replies as $reply)
-                                    <div class="media reply_section reply-section">
-                                        <div class="pull-left post_reply text-center">
-                                            <img class="img-responsive reply-img"
-                                                 src="{{ route('account.image', ['filename'=>$comment->user_id. '.jpg']) }}"
-                                                 alt="">
-
-                                        </div>
-                                        <div class="media-body post_reply_content">
-                                            <h3>Antone L. Huges</h3>
-                                            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                                                in voluptate velit esse cillum dolore eu fugiat nulla pariaturp</p>
-
-                                        </div>
-                                    </div>
-                                @endforeach
                                 <div class="media-body post_reply_comments">
 
-                                <div class="interaction pull-left">
+                                    <div class="interaction pull-left">
 
-                                    @if(Auth::user() == $comment->user)
-                                        <button type="submit" id="editComment"
-                                                class="btn btn-primary btn-lg editComment">Edit
-                                        </button>
-                                        <button type="submit" id="deleteCommentBtn"
-                                                class="btn btn-primary btn-lg deleteCommentBtn">
-                                            Delete
-                                        </button>
-                                    @endif
+                                        @if(Auth::user() == $comment->user)
+                                            <button type="submit" id="editComment"
+                                                    class="btn btn-primary btn-lg editComment">Edit
+                                            </button>
+                                            <button type="submit" id="deleteCommentBtn"
+                                                    class="btn btn-primary btn-lg deleteCommentBtn">
+                                                Delete
+                                            </button>
+                                        @endif
 
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +182,7 @@
         var deleteComment = '{{route('delete.comment')}}';
         var urlReply = '{{route('post.reply')}}';
         var getReply = '{{route('post.get.reply')}}';
-        var getComments='{{route('get.comments')}}';
+        var getComments = '{{route('readmore.get.comments')}}';
 
     </script>
 @endsection

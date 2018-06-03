@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var postBodyElement = null;
     var show = false;
     var spanLikes = document.querySelectorAll('.comments');
+    //call get comment function
     spanLikes.forEach(function (spanLike) {
         var commentId = spanLike.parentNode.parentNode.parentNode.parentNode.dataset['postid'];
-console.log(spanLike.childNodes);
+
         getComments(commentId, spanLike);
     });
-
-
     $('.post').find('.interaction').find('.edit').on('click', function (event) {
         event.preventDefault();
         postBodyElement = event.target.parentNode.parentNode.childNodes[1];
@@ -103,13 +102,11 @@ console.log(spanLike.childNodes);
         }
 
     });
-
-
     $('.editComment').on('click', function (event) {
         event.preventDefault();
 
-        commentId = event.target.parentNode.parentNode.parentNode.dataset['comment_id'];
-        commentBodyElement = event.target.parentNode.parentNode.childNodes[5];
+        commentId = event.target.parentNode.parentNode.parentNode.parentNode.dataset['comment_id'];
+        commentBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[5];
         var commentBody = commentBodyElement.textContent;
 
         $('#post-body').val(commentBody);
@@ -130,7 +127,7 @@ console.log(spanLike.childNodes);
     });
     $('.deleteCommentBtn').on('click', function (event) {
         event.preventDefault();
-        commentId = event.target.parentNode.parentNode.parentNode.dataset['comment_id'];
+        commentId = event.target.parentNode.parentNode.parentNode.parentNode.dataset['comment_id'];
         console.log(commentId);
         $.ajax({
             method: 'POST',
@@ -202,21 +199,20 @@ console.log(spanLike.childNodes);
         });
     });
 
-
 });
 
 function getComments(commentId, SpanLike) {
 
     $.ajax({
+
         method: 'post',
         url: 'getComments',
         data: {postId: commentId, _token: token}
 
     }).done(function (msg) {
-        const i= document.createElement('i');
-        i.classList.add('fa','fa-comment');
+        const i = document.createElement('i');
+        i.classList.add('fa', 'fa-comment');
         SpanLike.prepend(i);
-       SpanLike.append(msg['new_body'] + ' Comments');
-
+        SpanLike.append(msg['new_body'] + ' Comments');
     });
 }
