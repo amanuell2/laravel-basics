@@ -62,7 +62,7 @@
 
                                         </div>
 
-                                        <span><i class="fa fa-comment"></i><a href="#">2 Comments</a></span>
+                                        <span class="comments"> </span>
 
                                     </div>
 
@@ -79,15 +79,11 @@
                             </div>
                         </div><!--/.blog-item-->
                     @endforeach
-                    <ul class="pagination pagination-lg">
-                        <li><a href="#"><i class="fa fa-arrow-left"></i> Previous Page</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">Next Page <i class="fa fa-arrow-right"></i></a></li>
-                    </ul><!--/.pagination-->
+                        <ul class="pagination pagination-lg">
+
+                            <li>{{$posts->links()}}</li>
+
+                        </ul><!--/.pagination-->
                 </div><!--/.col-md-8-->
                 @include('includes.aside')
             </div><!--/.row-->
@@ -97,6 +93,7 @@
         var token = '{{Session::token()}}';
         var urlEdit = '{{route('edit')}}';
         var urlLike = '{{route('like')}}';
+        var getComments='{{route('get.comments')}}';
 
     </script>
 @endsection

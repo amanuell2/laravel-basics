@@ -25,7 +25,7 @@ class PostController extends Controller
         $asideCategories = $aside->getAsideCategories();
         $asideArchives = $aside->getAsideArchives();
 
-        $posts = post::orderBy('created_at', 'desc')->get();
+        $posts = post::orderBy('created_at', 'desc')->paginate(4);
 
         return view('blogs/blogs', compact('posts', 'asideCategories', 'asideArchives'));
     }
@@ -50,7 +50,7 @@ class PostController extends Controller
     {
         //validation
         $this->validate($request, [
-            'body' => 'required| max:1000'
+            'body' => 'required'
         ]);
         $post = new post();
         $post->body = $request['body'];
@@ -93,6 +93,14 @@ class PostController extends Controller
         $comment->comment = $request['body'];
         $comment->update();
         return response()->json(['new_body' => $comment->comment], 200);
+    }
+
+    public function getComments(Request $request){
+        $this->validate($request, [
+            'postId' => 'required']);
+        $comment = comment::where('post_id', $request['postId'])->count();
+
+        return response()->json(['new_body' => $comment], 200);
     }
 
     public function postLikePost(Request $request)
@@ -185,25 +193,25 @@ class PostController extends Controller
         $asideArchives = $aside->getAsideArchives();
         switch ($type) {
             case 'libraries':
-                $posts = post::where('type', 1)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 1)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             case'others':
-                $posts = post::where('type', 2)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 2)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             case'devotional':
-                $posts = post::where('type', 3)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 3)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             case'conservative':
-                $posts = post::where('type', 4)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 4)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             case'journey':
-                $posts = post::where('type', 5)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 5)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             case'paper':
-                $posts = post::where('type', 6)->orderBy('created_at', 'desc')->get();
+                $posts = post::where('type', 6)->orderBy('created_at', 'desc')->paginate(4);
                 break;
             default:
-                $posts = post::orderBy('created_at', 'desc')->get();
+                $posts = post::orderBy('created_at', 'desc')->paginate(4);
                 break;
         }
 

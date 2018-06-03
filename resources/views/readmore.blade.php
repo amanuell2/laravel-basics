@@ -41,7 +41,7 @@
                                             </a>
                                             </span>
                                         </div>
-                                        <span><i class="fa fa-comment"></i><a href="#">2 Comments</a></span>
+                                        <span class="comments"> </span>
 
                                     </div>
                                 </div>
@@ -89,12 +89,7 @@
                                     </div>
                                 @endforeach
                                 <div class="media-body post_reply_comments">
-                                    <form name="add-reply">
-                                        <input type="text" class="form-control reply-body" name="reply-body"
-                                               placeholder=" press enter to comment"/>
 
-                                    </form>
-                                </div>
                                 <div class="interaction pull-left">
 
                                     @if(Auth::user() == $comment->user)
@@ -106,9 +101,9 @@
                                             Delete
                                         </button>
                                     @endif
-                                    <a href="#" class="pull-right reply">Show Reply</a>
-                                </div>
 
+                                </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -206,6 +201,7 @@
         var deleteComment = '{{route('delete.comment')}}';
         var urlReply = '{{route('post.reply')}}';
         var getReply = '{{route('post.get.reply')}}';
+        var getComments='{{route('get.comments')}}';
 
     </script>
 @endsection

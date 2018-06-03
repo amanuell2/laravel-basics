@@ -2577,3 +2577,6 @@ shortcodes page css
     border-bottom: 1px solid red;
     margin-bottom: 10px;
 }
+.editComment, .deleteCommentBtn{
+ font-size: 10px;
+}
