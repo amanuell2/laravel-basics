@@ -30,6 +30,16 @@ class PostController extends Controller
         return view('blogs/blogs', compact('posts', 'asideCategories', 'asideArchives'));
     }
 
+    public function getSearch(Request $request, asideRepository $aside)
+    {
+        $s = $request->query('s');
+        //query and paginate result
+        $asideCategories = $aside->getAsideCategories();
+        $asideArchives = $aside->getAsideArchives();
+        $posts = Post::where('body', 'like', "%$s%")->paginate(6);
+        return view('blogs/search', compact('posts', 's', 'asideCategories', 'asideArchives'));
+    }
+
     public function readMore($post_id, asideRepository $aside)
     {
         $asideCategories = $aside->getAsideCategories();

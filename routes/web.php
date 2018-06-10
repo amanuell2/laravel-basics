@@ -21,52 +21,64 @@
  * kerenel and include session state, CSRF protection, and more.*
  */
 Route::group(['middleware' => ['web']], function () {
+
     Route::get('/login', function () {
         return view('welcome');
     })->name('login');
+
     Route::get('/', 'postController@getBlogs')->name('blogs');
 
+    Route::get('search/{s?}','postController@getSearch')->where('s','[\w\d]+');
 
+    Route::get('userimage/{filename}', 'UserController@getUserImage')->name('account.image');
+
+    Route::post('/getlike/{post_id}', 'postController@getLike')->name('get.like');
+
+    Route::post('readmore/getComments', 'postController@getComments')->name('readmore.get.comments');
+
+    Route::post('navigate/getComments', 'postController@getComments')->name('navigate.get.comments');
+
+    Route::post('getComments', 'postController@getComments')->name('get.comments');
+
+    Route::post('/getreply', 'PostController@getReply')->name('post.get.reply');
+
+    Route::get('/readmore/{post_id}', 'PostController@readMore')->name('blog.readmore');
+
+    Route::get('/navigate/{type}', 'PostController@getNavigation')->name('navigate');
+
+});
+
+Route::group(['prefix' => 'user'], function () {
     //sing in and up
 
     Route::post('/signUp', 'UserController@postSingUp')->name('signUp');
 
     Route::post('/signIn', 'UserController@postSignIn')->name('signIn');
 
+});
 
-    //account
-
-    Route::get('/account', 'UserController@getAccount')->name('account');
-
-    Route::post('/updateAccount', 'UserController@postSaveAccount')->name('account.save');
-
-    //user image
-
-    Route::get('userimage/{filename}', 'UserController@getUserImage')->name('account.image');
-
+Route::group(['middleware' => 'auth'], function () {
     //dashboard
 
     Route::get('/dashboard', 'postController@getdashboard')->name('dashboard');
 
-    //post
+    // create post
 
     Route::post('/createpost', 'postController@postCreatePost')->name('post.create');
 
+    //delete post
+
     Route::get('/delete-post/{post_id}', 'PostController@getDeletePost')->name('post.delete');
+
+    //edit post
 
     Route::post('/edit', 'PostController@postEditPost')->name('edit');
 
+
+    /* =============================================================================  */
+
     //like
-
     Route::post('/like', 'PostController@postLikePost')->name('like');
-
-    Route::post('/getlike/{post_id}', 'postController@getLike')->name('get.like');
-    Route::post('readmore/getComments', 'postController@getComments')->name('readmore.get.comments');
-
-    Route::post('navigate/getComments', 'postController@getComments')->name('navigate.get.comments');
-
-
-    Route::post('getComments', 'postController@getComments')->name('get.comments');
 
     //comment
     Route::post('/comment', 'PostController@postComment')->name('comment');
@@ -79,20 +91,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/reply', 'PostController@postReply')->name('post.reply');
 
-    Route::post('/getreply', 'PostController@getReply')->name('post.get.reply');
+    //account
 
-    //readmore
+    Route::get('/account', 'UserController@getAccount')->name('account');
 
-    Route::get('/readmore/{post_id}', 'PostController@readMore')->name('blog.readmore');
-
-    //navigation
-
-    Route::get('/navigate/{type}', 'PostController@getNavigation')->name('navigate');
+    Route::post('/updateAccount', 'UserController@postSaveAccount')->name('account.save');
 
     //logout
 
     Route::get('/logout', 'UserController@getLogout')->name('logout');
-
-
-}
-);
+});

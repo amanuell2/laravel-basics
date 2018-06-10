@@ -9,8 +9,8 @@
                     <img class="img-responsive" src="{{URL::to('img/banner.png')}}"/>
                 </div>
                 <div class="col-lg-offset-3 description">
-                    <h1>የዳንኤል ክብረት እይታዎች </h1>
-                    <h1>Daniel Kibret's Views</h1>
+                    <h2>የዳንኤል ክብረት እይታዎች </h2>
+                    <h2>Daniel Kibret's Views</h2>
                     <P>ስለ ኢትዮጵያ ታሪክ፤ ባህል፤ እምነት፤ ፖለቲካ እና ትውፊት ምልከታዎች ይቀርቡበታል</P>
                     <p>Reflection on Ethiopian’s History, Culture, Religion, Politics and Tradition</p>
                 </div>
@@ -93,7 +93,7 @@
         var token = '{{Session::token()}}';
         var urlEdit = '{{route('edit')}}';
         var urlLike = '{{route('like')}}';
-        var getComments='{{route('get.comments')}}';
+        var getComments = '{{route('get.comments')}}';
 
     </script>
 @endsection

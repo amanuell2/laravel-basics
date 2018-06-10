@@ -38,7 +38,7 @@
                     <input class="form-control" type="password" name="password"
                            value="{{Request::old('password')}}">
                 </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Sign In</button>
                 <input type="hidden" name="_token" value="{{Session::token()}}">
             </form>
         </div>

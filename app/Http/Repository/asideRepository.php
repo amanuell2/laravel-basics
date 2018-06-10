@@ -30,19 +30,15 @@ class asideRepository
     public function getAsideArchives()
     {
 
-        return [
+        $archive=Post::orderBy('created_at','desc')->whereNotNull('created_at')->get()->groupBy(function (Post $post){
+            return $post->created_at->format('Y');
+        })->map(function ($item){
+            return $item->sortByDesc('created_at')->groupBy(function ($item){
+                return $item->created_at->format('F');
+            });
+        });
 
-            $postsType1 = post::whereYear('created_at', '=', date('2010'))->count(),
-            $postsType2 = post::whereYear('created_at', '=', date('2011'))->count(),
-            $postsType3 = post::whereYear('created_at', '=', date('2012'))->count(),
-            $postsType4 = post::whereYear('created_at', '=', date('2013'))->count(),
-            $postsType5 = post::whereYear('created_at', '=', date('2014'))->count(),
-            $postsType6 = post::whereYear('created_at', '=', date('2015'))->count(),
-            $postsType5 = post::whereYear('created_at', '=', date('2016'))->count(),
-            $postsType6 = post::whereYear('created_at', '=', date('2017'))->count(),
-            $postsType5 = post::whereYear('created_at', '=', date('2018'))->count(),
-
-        ];
+        return $archive;
     }
 
 
