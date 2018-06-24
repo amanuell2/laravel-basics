@@ -15,6 +15,7 @@ use  Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -27,6 +28,7 @@ class UserController extends Controller
             'first_name' => 'required|max:120',
             'password' => 'required|min:4'
         ]);
+        $role_Admin= Role::where('name','user')->first();
         $email = $request['email'];
         $first_name = $request['first_name'];
         $password = bcrypt($request['password']);
@@ -35,6 +37,7 @@ class UserController extends Controller
         $user->first_name = $first_name;
         $user->password = $password;
         $user->save();
+        $user->roles()->attach($role_Admin);
         Auth::login($user);
         return redirect()->route('blogs');
 

@@ -9,6 +9,10 @@ class User extends Model implements Authenticatable
 {
     use \Illuminate\Auth\Authenticatable;
 
+    public function roles(){
+        return $this->belongsToMany('App\Role','user_role','user_id','role_id');
+    }
+
     public function posts()
     {
         return $this->hasMany('App\post');
