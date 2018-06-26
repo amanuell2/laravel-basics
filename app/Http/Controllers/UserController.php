@@ -28,7 +28,7 @@ class UserController extends Controller
             'first_name' => 'required|max:120',
             'password' => 'required|min:4'
         ]);
-        $role_Admin= Role::where('name','user')->first();
+        $role_user= Role::where('name','user')->first();
         $email = $request['email'];
         $first_name = $request['first_name'];
         $password = bcrypt($request['password']);
@@ -37,7 +37,7 @@ class UserController extends Controller
         $user->first_name = $first_name;
         $user->password = $password;
         $user->save();
-        $user->roles()->attach($role_Admin);
+        $user->roles()->attach($role_user);
         Auth::login($user);
         return redirect()->route('blogs');
 

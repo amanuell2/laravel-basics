@@ -58,21 +58,6 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    //dashboard
-
-    Route::get('/dashboard', 'postController@getdashboard')->name('dashboard');
-
-    // create post
-
-    Route::post('/createpost', 'postController@postCreatePost')->name('post.create');
-
-    //delete post
-
-    Route::get('/delete-post/{post_id}', 'PostController@getDeletePost')->name('post.delete');
-
-    //edit post
-
-    Route::post('/edit', 'PostController@postEditPost')->name('edit');
 
 
     /* =============================================================================  */
@@ -100,4 +85,23 @@ Route::group(['middleware' => 'auth'], function () {
     //logout
 
     Route::get('/logout', 'UserController@getLogout')->name('logout');
+});
+
+Route::group(['middleware'=>'roles','roles'=>['Admin']],function (){
+    //dashboard
+
+    Route::get('/dashboard','postController@getdashboard',['roles'=>['Admin']])->name('dashboard');
+
+    // create post
+
+    Route::post('/createpost', 'postController@postCreatePost')->name('post.create');
+
+    //delete post
+
+    Route::get('/delete-post/{post_id}', 'PostController@getDeletePost')->name('post.delete');
+
+    //edit post
+
+    Route::post('/edit', 'PostController@postEditPost')->name('edit');
+
 });
